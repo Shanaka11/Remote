@@ -1,12 +1,18 @@
 package communication;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+
 import org.apache.http.HttpResponse;
+import org.apache.http.HttpStatus;
+import org.apache.http.StatusLine;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
+
 import android.util.Log;
 
 public class HttpRecv extends Thread {
@@ -34,8 +40,23 @@ public class HttpRecv extends Thread {
 			HttpResponse response = httpclient.execute(new HttpGet(url));
 			InputStream inputstream = response.getEntity().getContent();
 
-			ret = convertStreamToString(inputstream);
-			ret = DecodeReq(ret);
+			//***********new************//
+			 StatusLine statusLine = response.getStatusLine();
+			    if(statusLine.getStatusCode() == HttpStatus.SC_OK){
+			        ByteArrayOutputStream out = new ByteArrayOutputStream();
+			        response.getEntity().writeTo(out);
+			        String responseString = out.toString();
+			        ret = responseString;
+			        out.close();
+			        //..more logic
+			    } else{
+			        //Closes the connection.
+			        response.getEntity().getContent().close();
+			        throw new IOException(statusLine.getReasonPhrase());
+			    }
+			    //****************8/****//8/
+			//ret = convertStreamToString(inputstream);
+			//ret = DecodeReq(ret);
 			
 		} catch (Exception e) {
 			Log.d("InputStream", e.getLocalizedMessage());
@@ -43,6 +64,8 @@ public class HttpRecv extends Thread {
 
 		// return result;
 	}
+	
+	
 	
 	private String DecodeReq(String in){
 		String[] temp = in.split("\n");
