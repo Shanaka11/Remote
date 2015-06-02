@@ -58,7 +58,7 @@ public class MainActivity extends Activity {
 		b1.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
 				if (remote_mode) {
-					url_s = "http://192.168.43.72/send";
+					url_s = "http://192.168.100.6/send";
 					HttpSend send = new HttpSend(url_s);
 					send.start();
 					tv1.setText("Sending Signal");
@@ -71,7 +71,7 @@ public class MainActivity extends Activity {
 					}
 					tv1.setText(send.ret());
 				} else {
-					url_s = "http://192.168.43.72/recv";
+					url_s = "http://192.168.100.6/recv";
 					HttpRecv recv = new HttpRecv(url_s);
 					recv.start();
 					tv1.setText("Reciving signal");
