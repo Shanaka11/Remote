@@ -38,22 +38,11 @@ public class HttpRecv extends Thread {
 			// ResponseHandler<String> responseHandler = new
 			// BasicResponseHandler();
 			HttpResponse response = httpclient.execute(new HttpGet(url));
-			InputStream inputstream = response.getEntity().getContent();
+			//InputStream inputstream = response.getEntity().getContent();
 
+			ret = response.toString();
 			//***********new************//
-			 StatusLine statusLine = response.getStatusLine();
-			    if(statusLine.getStatusCode() == HttpStatus.SC_OK){
-			        ByteArrayOutputStream out = new ByteArrayOutputStream();
-			        response.getEntity().writeTo(out);
-			        String responseString = out.toString();
-			        ret = responseString;
-			        out.close();
-			        //..more logic
-			    } else{
-			        //Closes the connection.
-			        response.getEntity().getContent().close();
-			        throw new IOException(statusLine.getReasonPhrase());
-			    }
+			
 			    //****************8/****//8/
 			//ret = convertStreamToString(inputstream);
 			//ret = DecodeReq(ret);
