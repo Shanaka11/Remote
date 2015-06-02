@@ -16,7 +16,7 @@ import android.util.Log;
 public class HttpSend extends Thread{
 
 	String url;
-	String ret = "notWorking";
+	String ret = "notWorking : Remote Mode";
 	public HttpSend(String url_i) {
 		this.url = url_i;
 	}

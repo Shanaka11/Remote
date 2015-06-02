@@ -17,7 +17,7 @@ import android.util.Log;
 
 public class HttpRecv extends Thread {
 	String url;
-	String ret = "notWorking";
+	String ret = "notWorking : Programmer Mode";
 	String dec;
 	
 	public HttpRecv(String url_i) {
