@@ -15,7 +15,9 @@ public class MainActivity extends Activity {
 	static Button b1, b2, b3;
 	static ToggleButton b4;
 	boolean remote_mode = true;
-	//String b1_val = "1", b2_val = "2", b3_val = "3";
+	String b1_val = "http://192.168.43.72/", 
+		   b2_val = "http://192.168.43.72/", 
+		   b3_val = "http://192.168.43.72/";
 	static TextView tv1;
 	
 	String url_s;

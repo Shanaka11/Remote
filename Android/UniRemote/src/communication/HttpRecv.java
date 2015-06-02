@@ -12,7 +12,8 @@ import android.util.Log;
 public class HttpRecv extends Thread {
 	String url;
 	String ret = "notWorking";
-
+	String dec;
+	
 	public HttpRecv(String url_i) {
 		this.url = url_i;
 	}
@@ -34,11 +35,26 @@ public class HttpRecv extends Thread {
 			InputStream inputstream = response.getEntity().getContent();
 
 			ret = convertStreamToString(inputstream);
+			ret = DecodeReq(ret);
+			
 		} catch (Exception e) {
 			Log.d("InputStream", e.getLocalizedMessage());
 		}
 
 		// return result;
+	}
+	
+	private String DecodeReq(String in){
+		String[] temp = in.split("\n");
+		String returns = "";
+		
+		if(temp[0].equalsIgnoreCase("1")){
+			returns = returns + "NEC ";
+		}else{
+			returns = "1 ";
+		}
+		returns = returns + temp[1];
+		return returns;
 	}
 
 	private String convertStreamToString(InputStream is) {
